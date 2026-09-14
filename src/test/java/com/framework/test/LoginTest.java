@@ -25,7 +25,7 @@ public class LoginTest extends BaseTest {
 		log.info(">>> Binding LoginPage instance in LoginTest");
 
 		// Safely fetch ThreadLocal page object instantiated by BaseTest
-		loginPage = getLoginPage();
+		loginPage = getLoginPage() ;
 	}
 
 	@Test(groups = "regression")
