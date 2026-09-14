@@ -15,14 +15,24 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class DriverFactory {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
+    // Helper method to detect if execution is running inside Jenkins
+    private static boolean isJenkinsExecution() {
+        return System.getenv("JENKINS_HOME") != null || System.getenv("BUILD_NUMBER") != null;
+    }
+
     public static WebDriver initDriver(String browser) {
+        boolean isHeadless = isJenkinsExecution();
+        System.out.println("Execution Environment -> Jenkins: " + isHeadless + " | Running Headless: " + isHeadless);
+
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             
             ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments("--headless=new");
-            chromeOptions.addArguments("--disable-gpu");
-            chromeOptions.addArguments("--window-size=1920,1080");
+            if (isHeadless) {
+                chromeOptions.addArguments("--headless=new");
+                chromeOptions.addArguments("--disable-gpu");
+                chromeOptions.addArguments("--window-size=1920,1080");
+            }
             
             driver.set(new ChromeDriver(chromeOptions));
             
@@ -30,9 +40,12 @@ public class DriverFactory {
             System.setProperty(ConfigReader.get("webdriverGecko"), ConfigReader.get("webdriverLocalPath"));
             
             FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--headless");
             options.setAcceptInsecureCerts(true);
             options.setBinary(ConfigReader.get("firefoxBinarypath"));
+            
+            if (isHeadless) {
+                options.addArguments("--headless");
+            }
             
             driver.set(new FirefoxDriver(options));
             
@@ -40,10 +53,13 @@ public class DriverFactory {
             System.setProperty(ConfigReader.get("webdriverEdge"), ConfigReader.get("webdriverLocpath"));
             
             EdgeOptions edgeOptions = new EdgeOptions();
-            edgeOptions.addArguments("--headless=new");
-            edgeOptions.addArguments("--disable-gpu");
-            edgeOptions.addArguments("--window-size=1920,1080");
             edgeOptions.addArguments("--remote-allow-origins=*");
+            
+            if (isHeadless) {
+                edgeOptions.addArguments("--headless=new");
+                edgeOptions.addArguments("--disable-gpu");
+                edgeOptions.addArguments("--window-size=1920,1080");
+            }
             
             driver.set(new EdgeDriver(edgeOptions));
         }
