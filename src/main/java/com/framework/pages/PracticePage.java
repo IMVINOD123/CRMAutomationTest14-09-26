@@ -22,7 +22,7 @@ public class PracticePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//h1[contains(@class,'post-title')]")
+	@FindBy(xpath = "//h1[text()='Practice']")
 	WebElement practiceTitle;
 
 	@Step("Validate the Practice title in the Practice page")
