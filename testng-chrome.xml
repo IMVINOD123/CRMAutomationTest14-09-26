@@ -39,7 +39,7 @@
             <class name="com.framework.test.LoginTest"/>
             <class name="com.framework.test.DashboardTest"/>
             <class name="com.framework.test.PracticeTest"/>
-        </classes>
+        </classes> 
     </test>
 
 </suite>
