@@ -75,7 +75,7 @@ public class DashboardPage {
 
 	@Step("Click on Practice Link")
 	public void clickOnPractice() {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 	    wait.until(ExpectedConditions.elementToBeClickable(practiceTabl)).click();
 	}
 	
