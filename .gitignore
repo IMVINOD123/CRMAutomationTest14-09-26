@@ -1,0 +1,29 @@
+# Eclipse metadata
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA metadata
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Maven build directory
+target/
+
+# TestNG output
+test-output/
+
+# Logs & Allure results
+logs/
+allure-results/
+allure-report/
+.allure/
+
+# Media captures (Screenshots & Recordings)
+*.avi
+*.mp4
+*.png

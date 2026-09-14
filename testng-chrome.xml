@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Spawns parallel threads for each <test> tag -->
+<suite name="CRM Automation Frame-Work" parallel="tests" thread-count="2">
+
+    <listeners>
+        <listener class-name="com.framework.utils.TestListener"/>
+    </listeners>
+
+    <!-- ======================================================== -->
+    <!-- THREAD 1: Runs ONLY "sanity" tests in Google Chrome     -->
+    <!-- ======================================================== -->
+    <test name="Chrome - Sanity Suite">
+        <parameter name="browser" value="chrome"/>
+     <!--    <groups>
+            <run>
+                <include name="sanity"/>
+                <include name="regression"/>
+            </run>
+        </groups> -->
+        <classes>
+            <class name="com.framework.test.LoginTest"/>
+            <class name="com.framework.test.DashboardTest"/>
+            <class name="com.framework.test.PracticeTest"/>
+        </classes>
+    </test>
+
+    <!-- ======================================================== -->
+    <!-- THREAD 2: Runs ONLY "regression" tests in Firefox       -->
+    <!-- ======================================================== -->
+    <test name="Firefox - Regression Suite">
+        <parameter name="browser" value="firefox"/>
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.framework.test.LoginTest"/>
+            <class name="com.framework.test.DashboardTest"/>
+            <class name="com.framework.test.PracticeTest"/>
+        </classes>
+    </test>
+
+</suite>
