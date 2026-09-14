@@ -7,8 +7,9 @@
    <test name="Dashboard Validation">
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="com.framework.test.LoginTest"/>
+             <class name="com.framework.test.LoginTest"/>
             <class name="com.framework.test.DashboardTest"/>
+            <class name="com.framework.test.PracticeTest"/>
         </classes>
     </test>
 </suite>
