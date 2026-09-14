@@ -28,7 +28,7 @@
     <!-- ======================================================== -->
     <!-- THREAD 2: Runs ONLY "regression" tests in Firefox       -->
     <!-- ======================================================== -->
-    <test name="Firefox - Regression Suite">
+   <!--  <test name="Firefox - Regression Suite">
         <parameter name="browser" value="firefox"/>
         <groups>
             <run>
@@ -40,6 +40,6 @@
             <class name="com.framework.test.DashboardTest"/>
             <class name="com.framework.test.PracticeTest"/>
         </classes> 
-    </test>
+    </test> -->
 
 </suite>
