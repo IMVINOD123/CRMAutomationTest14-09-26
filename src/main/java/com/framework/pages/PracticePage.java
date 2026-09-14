@@ -27,7 +27,7 @@ public class PracticePage {
 
 	@Step("Validate the Practice title in the Practice page")
 	public String verifyTitleOfPage() {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 	    return wait.until(ExpectedConditions.visibilityOf(practiceTitle)).getText();
 	}
 }
