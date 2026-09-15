@@ -42,6 +42,7 @@ public class DashboardTest extends BaseTest {
 		Assert.assertTrue(isDisplayed, "Image should be displayed");
 		log.info("Fetching Image Is Present or not !: " + isDisplayed);
 		
+		
 		log.info("Navigate to the Practice page after click on it ");
 		dashboardPage.clickOnPractice();
 		
