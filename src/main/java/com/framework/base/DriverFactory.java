@@ -28,10 +28,13 @@ public class DriverFactory {
             WebDriverManager.chromedriver().setup();
             
             ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--window-size=1920,1080"); // Set size for both local and headless
+            
             if (isHeadless) {
                 chromeOptions.addArguments("--headless=new");
                 chromeOptions.addArguments("--disable-gpu");
-                chromeOptions.addArguments("--window-size=1920,1080");
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
             }
             
             driver.set(new ChromeDriver(chromeOptions));
@@ -42,6 +45,8 @@ public class DriverFactory {
             FirefoxOptions options = new FirefoxOptions();
             options.setAcceptInsecureCerts(true);
             options.setBinary(ConfigReader.get("firefoxBinarypath"));
+            options.addArguments("--width=1920");
+            options.addArguments("--height=1080");
             
             if (isHeadless) {
                 options.addArguments("--headless");
@@ -54,17 +59,21 @@ public class DriverFactory {
             
             EdgeOptions edgeOptions = new EdgeOptions();
             edgeOptions.addArguments("--remote-allow-origins=*");
+            edgeOptions.addArguments("--window-size=1920,1080");
             
             if (isHeadless) {
                 edgeOptions.addArguments("--headless=new");
                 edgeOptions.addArguments("--disable-gpu");
-                edgeOptions.addArguments("--window-size=1920,1080");
             }
             
             driver.set(new EdgeDriver(edgeOptions));
         }
         
-        driver.get().manage().window().maximize();
+        // Safely maximize only for non-headless desktop runs
+        if (!isHeadless) {
+            driver.get().manage().window().maximize();
+        }
+        
         return driver.get();
     }
 
