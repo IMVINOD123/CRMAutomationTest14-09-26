@@ -75,8 +75,16 @@ public class DashboardPage {
 
 	@Step("Click on Practice Link")
 	public void clickOnPractice() {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-	    wait.until(ExpectedConditions.elementToBeClickable(practiceTabl)).click();
+		
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        
+        // Wait until the link is both visible and enabled for clicking
+        WebElement practiceBtn = wait.until(ExpectedConditions.elementToBeClickable(practiceTabl));
+        
+        practiceBtn.click();
+        log.info(">>> Successfully clicked on Practice link.");
+//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+//	    wait.until(ExpectedConditions.elementToBeClickable(practiceTabl)).click();
 	}
 	
 }
