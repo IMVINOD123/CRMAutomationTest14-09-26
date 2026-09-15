@@ -10,7 +10,8 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 import com.framework.utils.ConfigReader;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+// Optional: You can remove this import if you don't use WebDriverManager elsewhere
+// import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverFactory {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -25,8 +26,9 @@ public class DriverFactory {
         System.out.println("Execution Environment -> Jenkins: " + isHeadless + " | Running Headless: " + isHeadless);
 
         if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            
+            // REMOVED: WebDriverManager.chromedriver().setup();
+            // Selenium 4.21.0 automatically handles downloading the matching ChromeDriver (v152)
+
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--window-size=1920,1080"); // Set size for both local and headless
             
@@ -40,11 +42,17 @@ public class DriverFactory {
             driver.set(new ChromeDriver(chromeOptions));
             
         } else if (browser.equalsIgnoreCase("firefox")) {
-            System.setProperty(ConfigReader.get("webdriverGecko"), ConfigReader.get("webdriverLocalPath"));
+            // Optional: Commenting out hardcoded path properties lets Selenium Manager handle Firefox too
+            // System.setProperty(ConfigReader.get("webdriverGecko"), ConfigReader.get("webdriverLocalPath"));
             
             FirefoxOptions options = new FirefoxOptions();
             options.setAcceptInsecureCerts(true);
-            options.setBinary(ConfigReader.get("firefoxBinarypath"));
+            
+            // Only set binary if explicitly defined in config
+            if (ConfigReader.get("firefoxBinarypath") != null && !ConfigReader.get("firefoxBinarypath").isEmpty()) {
+                options.setBinary(ConfigReader.get("firefoxBinarypath"));
+            }
+            
             options.addArguments("--width=1920");
             options.addArguments("--height=1080");
             
@@ -55,7 +63,8 @@ public class DriverFactory {
             driver.set(new FirefoxDriver(options));
             
         } else if (browser.equalsIgnoreCase("edge")) {
-            System.setProperty(ConfigReader.get("webdriverEdge"), ConfigReader.get("webdriverLocpath"));
+            // Optional: Commenting out hardcoded path properties lets Selenium Manager handle Edge too
+            // System.setProperty(ConfigReader.get("webdriverEdge"), ConfigReader.get("webdriverLocpath"));
             
             EdgeOptions edgeOptions = new EdgeOptions();
             edgeOptions.addArguments("--remote-allow-origins=*");
@@ -70,7 +79,7 @@ public class DriverFactory {
         }
         
         // Safely maximize only for non-headless desktop runs
-        if (!isHeadless) {
+        if (!isHeadless && driver.get() != null) {
             driver.get().manage().window().maximize();
         }
         
