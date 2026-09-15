@@ -48,7 +48,7 @@ public class DashboardPage {
 	public void closePopUpIfPresent() {
 		try {
 			// Short 3-second wait so tests aren't delayed if the pop-up doesn't appear
-			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
 			// Xpaths targeting Kit (ConvertKit) modal close buttons
 			By closeBtnLocator = By.xpath(
