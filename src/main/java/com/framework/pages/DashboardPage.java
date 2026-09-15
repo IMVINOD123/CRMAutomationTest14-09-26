@@ -24,7 +24,7 @@ public class DashboardPage {
 	@FindBy(xpath = "//button[contains(@class, 'close')] | //button[@aria-label='Close'] | //div[contains(@class,'formkit-close')]")
 	private WebElement popUpCloseButton;
 
-	@FindBy(xpath = "//h1[contains(., 'Hello1')]")
+	@FindBy(xpath = "//h1[contains(., 'Hello')]")
 	private WebElement helloHeader;
 	// private WebElement HelloText;
 
