@@ -10,7 +10,7 @@
     <!-- ======================================================== -->
     <!-- THREAD 1: Runs ONLY "sanity" tests in Google Chrome     -->
     <!-- ======================================================== -->
-    <test name="Chrome - Sanity Suite">
+    <test name="Chrome - Sanity Suite" preserve-order="true">
         <parameter name="browser" value="chrome"/>
      <!--    <groups>
             <run>
