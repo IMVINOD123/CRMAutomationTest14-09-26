@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.framework</groupId>
 	<artifactId>hybrid-automation</artifactId>
@@ -10,6 +12,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- Sets default suite file if none is provided in terminal -->
 		<suiteXmlFile>testng-firefox.xml</suiteXmlFile>
+		<aspectj.version>1.9.22</aspectj.version>
+		<allure.version>2.27.0</allure.version>
 	</properties>
 
 	<dependencies>
@@ -41,11 +45,11 @@
 			<version>5.1.1</version>
 		</dependency>
 
-		<!-- Allure -->
+		<!-- Allure TestNG Integration -->
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-testng</artifactId>
-			<version>2.27.0</version>
+			<version>${allure.version}</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -104,7 +108,7 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.9.22</version>
+			<version>${aspectj.version}</version>
 		</dependency>
 
 		<!-- Video Recording -->
@@ -117,24 +121,6 @@
 
 	<build>
 		<plugins>
-			<!-- Maven Clean Plugin to automatically delete root allure-results -->
-		<!--	<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.3.2</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${project.basedir}/allure-results</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin> -->
-
 			<!-- Surefire Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -145,21 +131,24 @@
 						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
 					</suiteXmlFiles>
 					<systemPropertyVariables>
-						<allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
+						<!-- Redirects Allure raw JSON/XML files into target/allure-results -->
+						<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
 					</systemPropertyVariables>
 					<argLine>
-						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
 				</configuration>
 			</plugin>
 
-			<!-- Allure Maven plugin -->
+			<!-- Allure Maven Plugin -->
 			<plugin>
 				<groupId>io.qameta.allure</groupId>
 				<artifactId>allure-maven</artifactId>
 				<version>2.12.0</version>
 				<configuration>
-					<resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
+					<reportVersion>${allure.version}</reportVersion>
+					<resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+					<reportDirectory>${project.build.directory}/allure-report</reportDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
