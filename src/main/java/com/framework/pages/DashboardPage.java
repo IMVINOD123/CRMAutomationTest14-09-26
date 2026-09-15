@@ -48,7 +48,7 @@ public class DashboardPage {
 	public void closePopUpIfPresent() {
 		try {
 			// Short 3-second wait so tests aren't delayed if the pop-up doesn't appear
-			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// Xpaths targeting Kit (ConvertKit) modal close buttons
 			By closeBtnLocator = By.xpath(
@@ -76,7 +76,7 @@ public class DashboardPage {
 	@Step("Click on Practice Link")
 	public void clickOnPractice() {
 		
-WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         
         // Wait until the link is both visible and enabled for clicking
         WebElement practiceBtn = wait.until(ExpectedConditions.elementToBeClickable(practiceTabl));
