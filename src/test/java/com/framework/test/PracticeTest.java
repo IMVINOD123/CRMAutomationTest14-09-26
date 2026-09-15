@@ -24,7 +24,7 @@ public class PracticeTest  extends BaseTest
     }
 
 	
-	@Test(groups ="regression")
+	@Test(groups ="regression",dependsOnMethods = {"ValidationOfDashBoardPage"})
 	public void verifyPracticePageHeaderDetails()
 	{
 		String str=practicePage.verifyTitleOfPage();
